@@ -16,6 +16,7 @@ namespace LoL_Offline
         public MainWindow()
         {
             InitializeComponent();
+            this.RegionBox.SelectedIndex = 0;
         }
 
         private void blockIp(string Ip)
@@ -34,7 +35,9 @@ namespace LoL_Offline
             {
                 Process.Start(createRule);
             }
-            catch (Win32Exception) { }
+            catch (Win32Exception e) {
+                MessageBox.Show("Failed to create firewall rules!");
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -60,19 +63,14 @@ namespace LoL_Offline
             {
                 Process.Start(psi);
             }
-            catch (Win32Exception) { }
-        }
-
-        private void button3_Click(object sender, EventArgs e)
-        {
-            var howitworks = new Form2();
-            howitworks.Show();
+            catch (Win32Exception) {
+                MessageBox.Show("Failed to delete firewall rules!");
+            }
         }
 
         private string getSelectedRegionIp()
         {
-            var chosen = RegionBox.SelectedItem;
-            switch (chosen)
+            switch (RegionBox.SelectedItem)
             {
                 case "EUW": return "185.40.64.69";
                 case "NA": return "192.64.174.69";
@@ -85,6 +83,11 @@ namespace LoL_Offline
                 case "RUS": return "185.40.64.99";
                 default: return "";
             }
+        }
+
+        private void RegionBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            this.button1.Enabled = getSelectedRegionIp() != "";
         }
     }
 } 
