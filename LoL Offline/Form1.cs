@@ -11,16 +11,16 @@ using System.Windows.Forms;
 
 namespace LoL_Offline
 {
-    public partial class Form1 : Form
+    public partial class MainWindow : Form
     {
-        public Form1()
+        public MainWindow()
         {
             InitializeComponent();
         }
 
-        private void blockRegion(string Ip)
+        private void blockIp(string Ip)
         {
-
+            // Create a firewall rule to block the given ip
             var createRule =
                 new ProcessStartInfo("c:\\windows\\system32\\netsh.exe",
                 $"advfirewall firewall add rule name = \"N3RLoLOffline\" dir =out remoteip = {Ip} protocol = TCP action = block")
@@ -39,56 +39,15 @@ namespace LoL_Offline
 
         private void button1_Click(object sender, EventArgs e)
         {
-            var blockedRegion = RegionChosen();
-            if (blockedRegion == "EUW")
-            {
-                blockRegion("185.40.64.69");
-               
-            }
-            if (blockedRegion == "NA")
-            {
-                blockRegion("192.64.174.69");
-            }
+            var blockedRegion = getSelectedRegionIp();
 
-            if (blockedRegion == "EUNE")
-            {
-                blockRegion("185.40.64.110");
-            }
-
-            if (blockedRegion == "OCE")
-            {
-                blockRegion("192.64.169.20");
-            }
-
-            if (blockedRegion == "LAS")
-            {
-                blockRegion("66.151.33.28");
-            }
-
-            if (blockedRegion == "LAN")
-            {
-                blockRegion("66.151.33.24");
-            }
-
-            if (blockedRegion == "BR")
-            {
-                blockRegion("66.151.33.20");
-            }
-
-            if (blockedRegion == "TUR")
-            {
-                blockRegion("185.40.64.105");
-            }
-
-            if (blockedRegion == "RUS")
-            {
-                blockRegion("185.40.64.99");
-            }
-
+            if (blockedRegion != "")
+                blockIp(blockedRegion);
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
+            // Remove any existing firewall rules created by this application
             var psi =
                 new ProcessStartInfo("c:\\windows\\system32\\netsh.exe",
                 "advfirewall firewall delete rule name = \"N3RLoLOffline\"")
@@ -110,20 +69,20 @@ namespace LoL_Offline
             howitworks.Show();
         }
 
-        private string RegionChosen()
+        private string getSelectedRegionIp()
         {
             var chosen = RegionBox.SelectedItem;
             switch (chosen)
             {
-                case "EUW": return "EUW";
-                case "NA": return "NA";
-                case "EUNE": return "EUNE";
-                case "LAS": return "LAS";
-                case "LAN": return "LAN";
-                case "OCE": return "OCE";
-                case "BR": return "BR";
-                case "TUR": return "TUR";
-                case "RUS": return "RUS";
+                case "EUW": return "185.40.64.69";
+                case "NA": return "192.64.174.69";
+                case "EUNE": return "185.40.64.110";
+                case "LAS": return "66.151.33.28";
+                case "LAN": return "66.151.33.24";
+                case "OCE": return "192.64.169.20";
+                case "BR": return "66.151.33.20";
+                case "TUR": return "185.40.64.105";
+                case "RUS": return "185.40.64.99";
                 default: return "";
             }
         }
