@@ -24,7 +24,7 @@ namespace LoL_Offline
             // Create a firewall rule to block the given ip
             var createRule =
                 new ProcessStartInfo("c:\\windows\\system32\\netsh.exe",
-                $"advfirewall firewall add rule name = \"N3RLoLOffline\" dir =out remoteip = {Ip} protocol = TCP action = block")
+                $"advfirewall firewall add rule name = \"LoLOfflineRule\" dir =out remoteip = {Ip} protocol = TCP action = block")
                 {
                     UseShellExecute = true,
                     WindowStyle = ProcessWindowStyle.Hidden,
@@ -53,7 +53,7 @@ namespace LoL_Offline
             // Remove any existing firewall rules created by this application
             var psi =
                 new ProcessStartInfo("c:\\windows\\system32\\netsh.exe",
-                "advfirewall firewall delete rule name = \"N3RLoLOffline\"")
+                "advfirewall firewall delete rule name = \"LoLOfflineRule\"")
                 {
                     UseShellExecute = true,
                     Verb = "runas",
@@ -72,7 +72,7 @@ namespace LoL_Offline
         {
             switch (RegionBox.SelectedItem)
             {
-                case "EUW": return "185.40.64.69";
+                case "EUW": return "172.65.252.238"; // previously: "185.40.64.69"
                 case "NA": return "192.64.174.69";
                 case "EUNE": return "185.40.64.110";
                 case "LAS": return "66.151.33.28";
