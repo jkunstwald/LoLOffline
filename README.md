@@ -2,7 +2,7 @@
 
 Appear offline in League of Legends
 
-![screen](https://user-images.githubusercontent.com/17261478/54372729-3b856e00-467c-11e9-811b-c28be71319c6.PNG)
+![screen](https://user-images.githubusercontent.com/17261478/64494317-7f53db80-d28b-11e9-9dd4-2b60cdb56cc6.PNG)
 
 **Download: [LoLOffline.exe](https://github.com/jkunstwald/LoLOffline/releases/download/1.2/LoLOffline.exe)** (v1.2)
 
